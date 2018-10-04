@@ -5,14 +5,14 @@ import json
 
 def file_input():
     print("Hello!\n")
-    print("Please enter the complete filename for the .json you'd like to parse.\n")
+    print("Please enter the complete filename for the .json you'd like to parse.")
     file_name = input()
 
-    print("Name of file is: " + file_name)
+    print("\nName of file is: " + file_name + "\n")
 
     try:
         jdata = json.loads(open(file_name).read())
-        print("file is readable")
+        print("File is readable!")
     except IOError as e:
         if e.errno == errno.EACCES:
             print("file exists, but isn't readable")
@@ -25,10 +25,6 @@ def file_input():
 
 def main():
     jdata = file_input()
-
-    print("\n\nNew file dump:\n")
-    print(jdata)
-
 
 
 if __name__ == "__main__":
