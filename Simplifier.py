@@ -1,6 +1,6 @@
 # Created by Da Kim and Edward M. Abrahamson
 
-# Importing to make file parsing easier.
+import errno
 import json
 
 def file_input():
@@ -10,19 +10,24 @@ def file_input():
 
     print("Name of file is: " + file_name)
 
-    while not file_name.lower().endswith('.json'):
-        print("\n\nHey!  Let me help you:\n\n"
-              "SYNTAX FOR USING THIS:\n\n"
-              "> filename.json")
-        file_name = input()
+    try:
+        jdata = json.loads(open(file_name).read())
+        print("file is readable")
+    except IOError as e:
+        if e.errno == errno.EACCES:
+            print("file exists, but isn't readable")
+        elif e.errno == errno.ENOENT:
+            print("Files not found!\n")
 
+    return jdata
 
 
 
 def main():
-    file_input()
+    jdata = file_input()
 
-
+    print("\n\nNew file dump:\n")
+    print(jdata)
 
 
 
